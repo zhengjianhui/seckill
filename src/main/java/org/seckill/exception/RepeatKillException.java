@@ -6,6 +6,7 @@ package org.seckill.exception;
  * @author zjh
  *
  */
+@SuppressWarnings("serial")
 public class RepeatKillException extends SecKillException {
 
 	public RepeatKillException(String message, Throwable cause) {

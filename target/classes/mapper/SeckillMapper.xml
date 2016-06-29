@@ -54,6 +54,10 @@
 		#{limit}
 	</select>
 	
+	<!-- 使用存储过程执行秒杀逻辑
+		mode = IN  该参数为 入参
+		mode = OUT 该参数为 出参 
+	 -->
 	<select id="killByProcedure" statementType="CALLABLE">
 		call execute_seckill (
 			#{seckillId, jdbcType = BIGINT, mode = IN },
@@ -62,4 +66,6 @@
 			#{result, jdbcType = INTEGER, mode = OUT }
 		)
 	</select>
+	
+	
 </mapper>

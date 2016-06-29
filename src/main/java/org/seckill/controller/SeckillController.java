@@ -84,6 +84,7 @@ public class SeckillController {
 	 * @param seckillId
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "{seckillId}/exposer", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public SeckillResult exposer(@PathVariable("seckillId") Long seckillId) {
@@ -126,7 +127,9 @@ public class SeckillController {
 		
 		try {
 			
-			SeckillExcutetion se = seckillServiceImpl.executeSeckill(seckillId, userPhone, md5);
+//			SeckillExcutetion se = seckillServiceImpl.executeSeckill(seckillId, userPhone, md5);
+			// 使用存储过程调用
+			SeckillExcutetion se = seckillServiceImpl.executeSeckillProcedure(seckillId, userPhone, md5);
 			result = new SeckillResult<SeckillExcutetion>(true, se);
 			
 			

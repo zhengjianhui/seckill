@@ -93,7 +93,7 @@ var seckill = {
 								// 状态
                                 var state = killResult['state'];
                                 // 描述
-                                var stateInfo = killResult['stateInif'];
+                                var stateInfo = killResult['stateInfo'];
                                 // 显示秒杀结果
                                 seckillBox.html('<span class="label label-success">' + stateInfo + '</span>');
 							}

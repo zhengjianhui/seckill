@@ -5,6 +5,7 @@ package org.seckill.exception;
  * @author zjh
  *
  */
+@SuppressWarnings("serial")
 public class SeckillECloseException extends SecKillException {
 
 	public SeckillECloseException(String message, Throwable cause) {

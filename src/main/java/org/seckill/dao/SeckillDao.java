@@ -2,6 +2,7 @@ package org.seckill.dao;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.seckill.entity.Seckill;
@@ -40,4 +41,10 @@ public interface SeckillDao {
 	 * org.apache.ibatis.binding.BindingException: Parameter 'offset' not found. Available parameters are [offet, limit, param1, param2]
 	 */
 	List<Seckill> queryAll(@Param("offset") int offset, @Param("limit") int limit);
+	
+	/**
+	 * 使用存储过程 执行秒杀
+	 * @param paramsMap
+	 */
+	void killByProcedure(Map<String, Object> paramsMap);
 }
