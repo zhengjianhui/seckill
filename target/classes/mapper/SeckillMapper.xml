@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.seckill.dao.SeckillDao">
+	<!-- 目的：为dao接口方法提供sql语句配置 -->
+	<update id="reduceNumber">
+		<!-- 根据 id 修改
+			<![CDATA[ <= ]]>  告诉编译器 不是xml 语法
+			
+			 start_time <![CDATA[ <= ]]> #{killTime}  大于开启时间
+			 AND end_time >= #{killTime}			  小于结束时间
+			 
+			 AND number > 0   库存必须大于0
+		 -->
+		UPDATE seckill
+		SET number = number - 1
+		WHERE
+			seckill_id = #{seckillId}
+		AND start_time <![CDATA[ <= ]]> #{killTime}
+		AND end_time >= #{killTime}
+		AND number > 0
+	</update>
+	
+	<!-- 根据 id 查询 -->
+	<select id="queryById" resultType="Seckill" parameterType="long">
+		SELECT
+			seckill_id,
+			NAME,
+			number,
+			start_time,
+			end_time,
+			create_time
+		FROM
+			seckill
+		WHERE
+			seckill_id = #{seckillId}
+	</select>
+	
+	<!-- 根据 偏移和显示条数  显示列表 -->
+	<select id="queryAll" resultType="Seckill">
+		SELECT
+			seckill_id,
+			NAME,
+			number,
+			start_time,
+			end_time,
+			create_time
+		FROM
+			seckill
+		ORDER BY
+			create_time DESC
+		LIMIT #{offset},
+		#{limit}
+	</select>
+	
+	<select id="killByProcedure" statementType="CALLABLE">
+		call execute_seckill (
+			#{seckillId, jdbcType = BIGINT, mode = IN },
+			#{phone, jdbcType = BIGINT, mode = IN },
+			#{killTime, jdbcType = TIMESTAMP, mode = IN },
+			#{result, jdbcType = INTEGER, mode = OUT }
+		)
+	</select>
+</mapper>
